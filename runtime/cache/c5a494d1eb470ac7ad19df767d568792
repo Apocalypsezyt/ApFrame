@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>测试页</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>欢迎来到 By APOCALYPSE 的框架</h1>
+    <?php if($a == 'Hello'): ?>
+        <?php echo htmlentities($a) ?>
+    <?php elseif($a == 'bc'): ?>
+        <?php echo htmlentities("不属于XXX") ?>
+    <?php else: ?>
+        <?php echo htmlentities("ELSE") ?>
+    <?php endif; ?>
+</body>
+</html>

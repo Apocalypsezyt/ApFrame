@@ -204,36 +204,40 @@ class Route
         }
     }
 
-    /*
-     *  注册一个GET路由
-     *
+    /**
+     * @mthod protected 注册一个 GET 路由
+     * @param  string $key 路由键
+     * @param \Closure $function 一个闭包方法
      * */
     protected function get($key, $function)
     {
         $this->registerRoute($key, $function, 'get');
     }
 
-    /*
-     *  注册一个POST路由
-     *
+    /**
+     * @mthod protected 注册一个 POST 路由
+     * @param  string $key 路由键
+     * @param \Closure $function 一个闭包方法
      * */
     protected function post($key,$function)
     {
         $this->registerRoute($key, $function, 'post');
     }
 
-    /*
-     *  注册一个PUT路由
-     *
+    /**
+     * @mthod protected 注册一个 PUT 路由
+     * @param  string $key 路由键
+     * @param \Closure $function 一个闭包方法
      * */
     protected function put($key,$function)
     {
         $this->registerRoute($key, $function, 'put');
     }
 
-    /*
-     *  注册一个DELETE路由
-     *
+    /**
+     * @mthod protected 注册一个 DELETE 路由
+     * @param  string $key 路由键
+     * @param \Closure $function 一个闭包方法
      * */
     protected function delete($key,$function)
     {
@@ -267,15 +271,12 @@ class Route
         return true;
     }
 
-    /*
+    /**
+     * @method protected 判断路由第一个字符是不是斜杠,如果存在就去掉斜杠
      *
+     *  @param string route 路由名
      *
-     *  $route 传入路由名
-     *
-     *  判断路由第一个字符是不是斜杠,如果存在就去掉斜杠
-     *
-     *  @return route
-     *
+     *  @return array|bool 返回以数组形式存在的数据
      * */
     protected function hasSlash($route)
     {
@@ -345,10 +346,9 @@ class Route
         return isset($groups[$route_url]) ? ['route' => $route_url ,'groups' => $groups , 'param' => $param] : false;
     }
 
-    /*
-     *
-     *  获取当前路由模块
-     *
+    /**
+     * @method public 获取当前路由模块的名字
+     * @return  string|bool  返回当前路由的名字，如果没有返回false
      * */
     public function getModule()
     {

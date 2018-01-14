@@ -71,10 +71,10 @@ abstract class Model
         return $this->sql_param[$key];
     }
 
-    /*
+    /**
      *  把获取字段的数组转换成字符串
      *
-     *  @return 返回转换好的字符串
+     *  @return string 返回转换好的字符串
      * */
     protected function specificFieldToString()
     {

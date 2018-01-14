@@ -44,15 +44,18 @@ abstract class Controller
         return self::$instance;
     }
 
-    /*
-     *  @view_name 模板名称 @data 数据
+    /**
+     *  @method protected 渲染模板
      *
-     *  渲染视图
+     *  @param string $view_name 模板名称
+     *  @param array $data 数据
+     *
+     * @return string 返回渲染好的 HTML 模板
      *
      * */
     protected function view($view_name, array $data = null)
     {
-        $this->ApTemplet->show($view_name,$data);
+        return $this->ApTemplet->show($view_name,$data);
     }
 
     /*

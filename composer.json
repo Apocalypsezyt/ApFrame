@@ -1,5 +1,11 @@
 {
   "require" : {
-
+    "predis/predis": "^1.1"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
   }
 }

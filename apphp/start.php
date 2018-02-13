@@ -11,14 +11,8 @@ namespace apphp;
 
 define('ROOT_PATH', dirname(__DIR__).'/'); // 网站根路径
 
-require_once ROOT_PATH.'config/config.php'; // 配置文件
 
-/*
- *
- *  加载配置文件和自动加载文件
- *
- * */
-//require_once "config.php";
+// 加载自动初始化文件
 require_once "init.php";
 
 Init::initAll();

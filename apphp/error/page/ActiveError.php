@@ -30,11 +30,12 @@ h2{color:#0188DE; font-size:16px; padding:10px 0px 40px 0px;}
 
 
 <div id="page" style="border-style:dashed;border-color:#e4e4e4;line-height:30px;background:url(sorry.png) no-repeat right;">
-	<h1><?php echo $errorNo.':'.$errorMsg; ?></h1>
+	<h1><?php echo "错误代码：" . $errorNo ?></h1>
 	<h2>行数：11</h2>
-	<font color="#666666">124124</font><br><br>
+    <h4>详细错误：</h4>
+	<font color="#666666"><?php echo $errorMsg; ?></font><br><br>
 	<div class="button">
-		<a href="" title="返回上页">返回上页</a>
+		<a href="javascript:history.go(-1);" title="返回上页">返回上页</a>
 	</div>
 </div>
 

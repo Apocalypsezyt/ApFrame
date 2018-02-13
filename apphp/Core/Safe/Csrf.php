@@ -51,7 +51,7 @@ class Csrf
      *
      *  @return 生成的token
      * */
-    public function bulidCsrf()
+    public function buildCsrf()
     {
         $token = '';
         $pass = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";

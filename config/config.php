@@ -16,17 +16,19 @@
 //define('ROOT_PATH', dirname(__DIR__).'/'); // 网站根路径
 define('APPHP_PATH', ROOT_PATH.'apphp/'); // 网站核心路径
 define('APP_PATH', ROOT_PATH.'application/');  // 框架应用目录
+define('BOOT_PATH', ROOT_PATH.'bootstrap/');  // 引导应用目录
+define('RESOURCE_PATH', ROOT_PATH.'resource/');  // 资源目录
 define('APP_NAMESPACE', 'app');
 define('APPHP_VER','beta v 1.0');
 
 // 是否启用command
-define('USE_COMMAND', true);
+define('USE_COMMAND', readSet('USE_COMMAND', true));
 
 // 是否开启session
-define("USE_SESSION", true);
+define("USE_SESSION", readSet('USE_SESSION', true));
 
 // 使用的数据库
-define("USE_DATABASE", "mysql");
+define("USE_DATABASE", readSet('USE_DATABASE'));
 
 // 是否启用自动加载CSS和JS
 define("USE_STYLE", true);

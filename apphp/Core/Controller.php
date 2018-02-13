@@ -58,10 +58,10 @@ abstract class Controller
         return $this->ApTemplet->show($view_name,$data);
     }
 
-    /*
-     *  重定向
+    /**
+     * @method protected 重定向
      *
-     *  指定路径
+     * @param string $url 指定路径
      *
      * */
     protected function redirect($url)

@@ -16,12 +16,12 @@ class Request
 
     private static $instance;
 
-    /*
+    /**
      *
      *  将该类实例化并返回
      *
      * */
-    public static function instance()
+    public static function instance() : Request
     {
         if(empty(self::$instance))
         {
@@ -31,12 +31,12 @@ class Request
         return self::$instance;
     }
 
-    /*
+    /**
      *  获取数据
      *
-     *  $info 格式为 obtain('get.xxx')
+     *  @param string $info 格式为 obtain('get.xxx')
      *
-     *  @return 返回值
+     *  @return string|array 返回值
      * */
     public function obtain($info)
     {
@@ -48,15 +48,25 @@ class Request
 
         $obtain_info = '';
         $request_type = $info[0];
-        $request_info = $info[1];;
+        $request_info = $info[1] ?? false;
 
         switch ($request_type)
         {
             case 'get':
-                        $obtain_info = $_GET[$request_info];
+                        $obtain_info = $request_info ? $_GET[$request_info] : $_GET;
                         break;
             case 'post':
-                        $obtain_info = $_POST[$request_info];
+                        $obtain_info = $request_info ? $_POST[$request_info] : $_POST;
+                        break;
+            case 'put':
+                        $_PUT = array();
+                        parse_str(file_get_contents('php://input'), $_PUT);
+                        $obtain_info = $request_info ? $_PUT[$request_info] : $_PUT;
+                        break;
+            case 'delete':
+                        $_DELETE = array();
+                        parse_str(file_get_contents('php://input'), $_DELETE);
+                        $obtain_info = $request_info ? $_DELETE[$request_info] : $_DELETE;
                         break;
         }
 
@@ -83,6 +93,16 @@ class Request
                        break;
             case 'post':
                         $is_has = isset($_POST[$key]) ? true :false;
+                        break;
+            case 'put':
+                        $_PUT = array();
+                        parse_str(file_get_contents('php://input'), $_PUT);
+                        $is_has = isset($_PUT[$key]) ? true :false;
+                        break;
+            case 'delete':
+                        $_DELETE = array();
+                        parse_str(file_get_contents('php://input'), $_DELETE);
+                        $is_has = isset($_DELETE[$key]) ? true :false;
                         break;
             default:
                         if(STRICT_MODE)

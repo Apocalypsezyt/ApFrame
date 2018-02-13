@@ -22,10 +22,10 @@ class error
      *
      *  $errorNo 错误编号
      * */
-    public static function ActiveError($errorNo)
+    public static function ActiveError($errorNo, $msg = null)
     {
         $errorNo = $errorNo;
-        $errorMsg = self::getError($errorNo);
+        $errorMsg = $msg ?? self::getError($errorNo);
         // 加载自定义主动调用错误的页面
         require_once APPHP_PATH."/error/page/ActiveError.php";
         exit();

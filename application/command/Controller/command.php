@@ -9,6 +9,7 @@
 namespace app\command\Controller;
 
 
+use apphp\Core\Cache;
 use apphp\Core\Request;
 
 class command
@@ -106,7 +107,7 @@ class command
                                             {
                                                 case 'module':
                                                     module = keyword[2];
-                                                    add_module(name);
+                                                    add_module(module);
                                                 break;
                                                 case 'controller':
                                                     module = keyword[2];
@@ -120,6 +121,14 @@ class command
                                                 break;
                                                 default:
                                                         notice("make 中不存在该命令");
+                                                break;
+                                            }
+                                            break;
+                                 case 'cache':
+                                        switch (keyword[1])
+                                            {
+                                                case 'config':
+                                                    cache_config();
                                                 break;
                                             }
                                             break;
@@ -301,6 +310,21 @@ class command
                          xmlHttp.send();
                     }
                     
+                    function cache_config()
+                    {
+                        let xmlHttp = new XMLHttpRequest();
+                        xmlHttp.open("post","/command/command/cacheConfig",true);
+                        xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                        xmlHttp.onreadystatechange = function(json) {
+                            if(this.readyState == 4)
+                             {
+                                 json = JSON.parse(xmlHttp.responseText);
+                                 notice(json.status);
+                             }
+                        }
+                         xmlHttp.send();
+                    }
+                    
                     function gethelp()
                     {
                         notice(`————————————————————`);
@@ -334,9 +358,9 @@ EOF;
         $module_name = Request::instance()->obtain('post.name');
         $dir = APP_PATH.$module_name;
 
-        if(!file_exists($dir))
+        if(file_exists($dir))
         {
-            return json(['code' => 'error', 'status' => '模块尚未创建']);
+            return json(['code' => 'error', 'status' => '模块目录已存在！']);
         }
 
         if(!file_exists($dir))
@@ -488,6 +512,18 @@ EOF;
         }
 
         return json([ 'dir' =>  $dirs]);
+    }
+
+    /*
+     *
+     *  缓存配置文件
+     *
+     * */
+    public function cacheConfig()
+    {
+        $cache = Cache::instance();
+
+        return $cache->cacheConfig() ? json([ 'status' =>  "缓存成功"]) : json([ 'status' =>  "缓存失败"]);
     }
 
     /*

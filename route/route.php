@@ -9,18 +9,6 @@
 
 use apphp\Core\Route;
 
-Route::get('/cms',function (){
-    echo "123";
+Route::get('/', function(){
+   echo "Welcome to ApFrame";
 });
-
-Route::get('index','Apocalypse.happy.index');
-
-Route::post('/info','test.test.info');
-
-Route::get('gg','test.test.test');
-
-Route::get('json','Apocalypse.happy.json');
-
-Route::restful('abc', 'Apocalypse.restful');
-
-Route::delete('delete', 'test.test.delete');

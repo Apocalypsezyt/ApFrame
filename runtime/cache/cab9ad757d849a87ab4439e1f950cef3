@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="<?php echo htmlentities(asset('static/css/bootstrap.min.css')) ?>">
+    <link rel="stylesheet" href="<?php echo htmlentities(asset('static/css/site/login.css')) ?>">
+    <?php include('G:\Programme\PHP\project\project_manger/resource/view/global.html') ?>
+</head>
+<body>
+    <div class="container">
+        <div id="login_box" class="text-center col-lg-6">
+            <form id="data_form" action="">
+                <h1>项目管理系统 V 0.1</h1>
+                <div class="form-group">
+                    <input name="account" type="text" class="form-control" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="请输入密码">
+                </div>
+                <div class="form-group">
+                    <button id="login_button" class="btn btn-primary btn-block" type="button">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="<?php echo htmlentities(asset('static/js/jquery.min.js')) ?>"></script><script>
+        $("#login_button").click(function () {
+
+            let url = '/login';
+            let form = new FormData($("#data_form")[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: url ,
+                data: form ,
+                contentType:false,
+                processData:false,
+                cache:false,
+                success: function (data) {
+                    alert(data.status);
+                } ,
+                dataType: 'json'
+            });
+        });
+    </script>
+
+</body>
+</html>

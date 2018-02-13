@@ -16,6 +16,7 @@ class ApTemplet
     protected $template_dir = ROOT_PATH.'resource/view/';
     protected $cache_dir = ROOT_PATH.'runtime/cache/';
     protected $compilers = [
+        "JsEchos",
         "Echos",
         "EscapedEchos",
         "Statements",
@@ -125,6 +126,18 @@ class ApTemplet
 
     /**
      *
+     *  用于处理Js的模板引擎
+     *
+     * @content 内容
+     *
+     * */
+    protected function compileJsEchos($content)
+    {
+        return preg_replace('/@{{ (\S+) }}/' , '<?php echo chr(123) . chr(123) . " " . "$1"  . " " . chr(125) . chr(125); ?>', $content);
+    }
+
+    /**
+     *
      *  不处理地输出
      *
      * @content 内容
@@ -132,7 +145,7 @@ class ApTemplet
      * */
     protected function compileEchos($content)
     {
-        return preg_replace('/{!! (.*) !!}/' , '<?php echo $1 ?>',$content);
+        return preg_replace('/{!! (\S+) !!}/' , '<?php echo $1 ?>', $content);
     }
 
     /**
@@ -144,7 +157,7 @@ class ApTemplet
      * */
     protected function compileEscapedEchos($content)
     {
-        return preg_replace('/{{ (.*) }}/' , '<?php echo htmlentities($1) ?>',$content);
+        return preg_replace('/{{ (\S+) }}/' , '<?php echo htmlentities($1) ?>',$content);
     }
 
     /**
@@ -183,6 +196,19 @@ class ApTemplet
         }
 
         return isset($match[3]) ? $match[0] : $match[0].$match[2];
+    }
+
+    /**
+     *  INCLUDE 语句
+     *
+     *
+     * @expression 文件名
+     * */
+    protected function compileInclude($expression)
+    {
+        $file = "('" . ROOT_PATH . 'resource/view/' . substr($expression, 2);
+
+        return "<?php include{$file} ?>";
     }
 
     /**
@@ -259,7 +285,7 @@ class ApTemplet
      * */
     protected function compileForeach($expression)
     {
-        return "<?php foreach($expression): ?>";
+        return "<?php foreach${expression}: ?>";
     }
 
     /**

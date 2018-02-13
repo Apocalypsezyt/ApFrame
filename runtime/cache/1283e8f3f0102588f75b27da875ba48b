@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目管理主页</title>
+    <link rel="stylesheet" href="<?php echo htmlentities(asset('/static/css/bootstrap.min.css')) ?>">
+    <link rel="stylesheet" href="<?php echo htmlentities(asset('/static/css/highcharts.css')) ?>">
+    <?php include('G:\Programme\PHP\project\project_manger/resource/view/global.html') ?>
+</head>
+<body>
+
+    <?php include('G:\Programme\PHP\project\project_manger/resource/view/nav.php') ?>
+
+    <div class="offset-md-2 col-md-10">
+        <div class="panel">
+            <div class="panel-head">
+                要是能重来
+            </div>
+            <div class="panel-body">
+                <div id="highcharts"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="<?php echo htmlentities(asset('static/js/jquery.min.js')) ?>"></script>
+    <script src="<?php echo htmlentities(asset('static/js/bootstrap.min.js')) ?>"></script>
+    <script src="<?php echo htmlentities(asset('static/js/highcharts.js')) ?>"></script>
+    <script>
+        $(function () {
+            $('#highcharts').highcharts({
+                chart: {
+                    type: 'area',
+                    spacingBottom: 30
+                },
+                title: {
+                    text: '项目系统登录情况'
+                },
+                subtitle: {
+                    text: '* 小潘家的香蕉消费未知',
+                    floating: true,
+                    align: 'right',
+                    verticalAlign: 'bottom',
+                    y: 15
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                xAxis: {
+                    categories: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Y-Axis'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            this.x + ': ' + this.y;
+                    }
+                },
+                plotOptions: {
+                    area: {
+                        fillOpacity: 0.5
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: '程序员',
+                    data: [0, 1, 4, 4, 5, 2, 3]
+                }, {
+                    name: '设计师',
+                    data: [1, 0, 3, 2, 3, 1, 2]
+                }]
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -11,8 +11,7 @@ namespace apphp;
 
 use apphp\Core\Request;
 use apphp\Core\Route;
-use apphp\database\mysql;
-use apphp\Storage\session;
+use apphp\Core\Storage\session;
 
 class Init
 {
@@ -20,10 +19,13 @@ class Init
     {
         // composer vendor 组件自动加载
         require_once "../vendor/autoload.php";
-
-        // 自动加载文件
-        require_once "autoload.php";
+        // ApFrame自动加载文件并注册
+        require_once ROOT_PATH . "apphp/autoload.php";
         spl_autoload_register("\\apphp\\autoload::autoload");
+        // 加载全局函数
+        require_once "general/globalFunction.php";
+        // 加载配置文件
+        require_once ROOT_PATH . 'config/config.php';
 
         // 启用本库自定义错误
         set_error_handler("\\apphp\\error\\error::showError");
@@ -48,9 +50,6 @@ class Init
 
         // 启动或者不启用session
         session::start();
-
-        // 加载全局函数
-        require_once "general/globalFunction.php";
 
         // 路由配置文件
         require_once ROOT_PATH.'route/route.php';

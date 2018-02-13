@@ -9,62 +9,98 @@
 namespace apphp\Core;
 
 
+use apphp\database\Database;
 use apphp\error\error;
 
 abstract class Model
 {
-//    当前模型名称
+    /**
+     * @access protected
+     * @name string $model 当前模型名称
+     * */
     protected $model;
-//    表名称
+    /**
+     * @access protected
+     * @name string $table 表的名称
+     * */
     protected $table;
-//    当前使用的数据库信息
+    /**
+     * @access protected
+     * @name string $primary_key 表的名称
+     * */
+    protected $primary_key;
+    /**
+     * @access protected
+     * @name Database $connection 当前使用的数据库信息
+     * */
     protected $connection;
-//    存储SQL语句
+    /**
+     * @access protected
+     * @name string $sql 使用的 sql 语句
+     * */
     protected $sql;
-//    存储SQL语句的参数
+    /**
+     * @access protected
+     * @name string $sql_param 当前 sql 语句的参数
+     * */
     protected $sql_param;
-//    获取特定的字段
+    /**
+     * @access protected
+     * @name string $specific_field 特定的字段
+     * */
     protected $specific_field;
-//    获取多少列
+    /**
+     * @access protected
+     * @name string $limit 要获取多少列
+     * */
     protected $limit;
-//    获取的条件
+    /**
+     * @access protected
+     * @name string $where 当前条件
+     * */
     protected $where;
 
-    /*
-     *  构造函数
+    /**
+     *  @method public 构造函数
      *
      * */
     function __construct()
     {
-//        当前使用的数据库
-        $NOWDB = "\\apphp\\database\\".NOW_USE_DB;
-        $this->connection = new $NOWDB();
-//        未指定当前模型的表 将默认指定
+        // 当前使用的数据库
+        $NowDb = "\\apphp\\Core\\database\\".NOW_USE_DB;
+        $this->connection = new $NowDb();
+        // 未指定当前模型的表 将默认指定
         if(is_null($this->table))
         {
-//            获取子类名
+            // 获取子类名
             $class = get_class($this);
             $model_name = explode('\\',$class);
             $this->table = end($model_name);
         }
+        // 未指定当前模型的主键 将默认指定
+        if(is_null($this->primary_key))
+        {
+            $this->primary_key = "id";
+        }
     }
 
-    /*
-     *  用来存储字段和值
+    /**
+     * @method public 用来存储字段和值
      *
-     *  $key 键 $value 值
+     * @param string $key 键
+     * @param string $value 值
      * */
     function __set($key, $value)
     {
         $this->sql_param[$key] = $value;
     }
 
-    /*
-     *  用来获取通过__set存储字段和值
+    /**
+     *  @method public 用来获取通过__set存储字段和值
      *
-     *  $key 键
+     *  @param string $key 键
      *
-     *  @return 返回值
+     *  @return string 返回对应的值
      * */
     function __get($key)
     {
@@ -72,7 +108,7 @@ abstract class Model
     }
 
     /**
-     *  把获取字段的数组转换成字符串
+     *  @method protected 把获取字段的数组转换成字符串
      *
      *  @return string 返回转换好的字符串
      * */
@@ -97,38 +133,58 @@ abstract class Model
         return $specific_field;
     }
 
-    /*
+    /**
+     *  通过id查找数据
+     *
+     * @param int|string $id 提供数据库的id
+     *
+     *  @return Model 返回表中的以ID为主要的数据
+     * */
+    public  function find($id)
+    {
+        $this->where($this->primary_key, $id);
+
+        return $this->connection->selectSpecificField("*", $this->table, $this->where);
+    }
+
+    /**
      *  获取表中所有信息
      *
-     *  @return 返回信息
+     *  @return Model 返回表中的所有数据
      * */
     public function getAll()
     {
         $specif_field = $this->specificFieldToString();
+
         return $this->connection->selectSpecificField($specif_field,$this->table);
     }
 
-    /*
-     *  获取特定的信息
+    /**
+     *  @method public 获取特定的信息
      *
-     *  @return 返回信息
+     *  @return Collection 返回信息
      * */
     public function get()
     {
         $specif_field = $this->specificFieldToString();
-        return $this->connection->selectSpecificField($specif_field,$this->table,$this->where,$this->limit);
+        $info = $this->connection->selectSpecificField($specif_field, $this->table, $this->where, $this->limit);
+        $group = new Collection($info);
+
+        //return $group;
+
+        return$info;
     }
 
-    /*
-     *  插入一条信息
+    /**
+     *  @method public 插入一条数据信息
      * */
     public function create()
     {
         return $this->connection->insert($this->sql_param,$this->table);
     }
 
-    /*
-     *  更新信息
+    /**
+     *  @method public 更新信息
      * */
     public function update()
     {
@@ -136,11 +192,11 @@ abstract class Model
         {
             error::ActiveError('f_upw');
         }
-        return $this->connection->update($this->sql_param,$this->table,$this->where);
+        return $this->connection->update($this->sql_param, $this->table, $this->where);
     }
 
-    /*
-     *  删除信息
+    /**
+     *  @method public 删除信息
      * */
     public function remove()
     {
@@ -152,22 +208,52 @@ abstract class Model
         return $this->connection->delete($this->table,$this->where);
     }
 
-    /*
-     *  查询的条件
+    /**
+     * @method public 查询的条件
      *
-     *  $column 列名 $value 值
+     * @param string $column 列名
+     * @param string $value 条件
+     *
+     * @return Model
      * */
     public function where($column,$value)
     {
-        $this->where = ['column' => $column, 'value' => $value];
+        if(is_null($this->where)) {
+            $this->where .= " WHERE ${column} = '${value}'";
+        }
+        else{
+            $this->where .= " AND ${column} = '${value}'";
+        }
 
         return $this;
     }
 
-    /*
-     *  显示多少行
+    /**
+     * @method public 或条件
      *
-     *  $limit
+     * @param string $column 列名
+     * @param string $value 条件
+     *
+     * @return Model
+     * */
+    public function orWhere($column, $value)
+    {
+        if(is_null($this->where)) {
+            $this->where .= " WHERE ${column} = '${value}'";
+        }
+        else{
+            $this->where .= " OR ${column} = '${value}'";
+        }
+
+        return $this;
+    }
+
+    /**
+     * @method public 显示多少行
+     *
+     * @param int $limit
+     *
+     * @return Model
      * */
     public function limit($limit)
     {
@@ -176,10 +262,8 @@ abstract class Model
         return $this;
     }
 
-    /*
-     *  清空sql语句
-     *
-     *  及条件
+    /**
+     *  @method protected 清空sql语句和条件
      * */
     protected function emptySql()
     {
@@ -188,4 +272,39 @@ abstract class Model
         $this->limit = null;
         $this->sql = null;
     }
+
+    /**
+     * @method protected 一对一
+     *
+     * @param string $model 模型名
+     * @param string $foreign_key 外键名
+     *
+     * @return Model
+     * */
+    protected function hasOne($model, $foreign_key)
+    {
+        $refection = new \ReflectionClass($model);
+        $method = $refection->getMethod('where');
+        $info = $method->invokeArgs($refection, [$foreign_key, '1']);
+
+        return $info;
+    }
+
+    /**
+     * @method protected 一对多
+     *
+     * @param string $model 模型名
+     * @param string $foreign_key 外键名
+     *
+     * @return Model
+     * */
+    protected function hasMany($model, $foreign_key)
+    {
+        $refection = new \ReflectionClass($model);
+        $method = $refection->getMethod('where');
+        $info = $method->invokeArgs($refection, [$foreign_key, '1']);
+
+        return $info;
+    }
+
 }

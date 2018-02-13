@@ -39,6 +39,7 @@ return [
      * */
     'found_route_nohas' => '该路由不存在',
     '403_CSRF' => '你尝试CSRF请求',
+    'found_class_function_nohas' => '类中的方法不存在',
 
     /*
      *

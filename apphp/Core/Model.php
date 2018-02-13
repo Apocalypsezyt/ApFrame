@@ -67,7 +67,7 @@ abstract class Model
     function __construct()
     {
         // 当前使用的数据库
-        $NowDb = "\\apphp\\Core\\database\\".NOW_USE_DB;
+        $NowDb = APP_SERVICE['database'][NOW_USE_DB];
         $this->connection = new $NowDb();
         // 未指定当前模型的表 将默认指定
         if(is_null($this->table))

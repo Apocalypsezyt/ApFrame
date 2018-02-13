@@ -9,12 +9,39 @@
 namespace apphp\Core;
 
 
+use apphp\Core\request\Obtain;
 use apphp\error\error;
 
 class Request
 {
 
+    use Obtain;
+
     private static $instance;
+
+    /**
+     *
+     *  构造方法
+     *
+     * */
+    function __construct()
+    {
+
+    }
+
+    /**
+     * __GET 方法
+     *
+     * 用于获取参数
+     *
+     * @param $name string 键值
+     *
+     * @return string 获取到的数据
+     * */
+    function __get($name)
+    {
+        return $this->achieve($name) ?? 'undefined';
+    }
 
     /**
      *
@@ -31,47 +58,7 @@ class Request
         return self::$instance;
     }
 
-    /**
-     *  获取数据
-     *
-     *  @param string $info 格式为 obtain('get.xxx')
-     *
-     *  @return string|array 返回值
-     * */
-    public function obtain($info)
-    {
-        $info = explode('.',$info,2);
-        if(!$info)
-        {
-            error::ActiveError('r_obtain');
-        }
 
-        $obtain_info = '';
-        $request_type = $info[0];
-        $request_info = $info[1] ?? false;
-
-        switch ($request_type)
-        {
-            case 'get':
-                        $obtain_info = $request_info ? $_GET[$request_info] : $_GET;
-                        break;
-            case 'post':
-                        $obtain_info = $request_info ? $_POST[$request_info] : $_POST;
-                        break;
-            case 'put':
-                        $_PUT = array();
-                        parse_str(file_get_contents('php://input'), $_PUT);
-                        $obtain_info = $request_info ? $_PUT[$request_info] : $_PUT;
-                        break;
-            case 'delete':
-                        $_DELETE = array();
-                        parse_str(file_get_contents('php://input'), $_DELETE);
-                        $obtain_info = $request_info ? $_DELETE[$request_info] : $_DELETE;
-                        break;
-        }
-
-        return $obtain_info;
-    }
 
     /*
      *  判断一个变量是否设置

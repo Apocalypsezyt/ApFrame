@@ -14,5 +14,5 @@ define('ROOT_PATH', dirname(__DIR__).'/'); // 网站根路径
 
 // 加载自动初始化文件
 require_once "init.php";
-
+// 框架初始化
 Init::initAll();

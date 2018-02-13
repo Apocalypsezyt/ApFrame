@@ -11,7 +11,7 @@ namespace apphp\Core\Storage;
 
 class Session
 {
-    /*
+    /**
      *
      * 启用 session 或者 关闭 session
      *
@@ -22,14 +22,14 @@ class Session
             session_start();
     }
 
-    /*
-     *
+    /**
      *  设置 session 值
      *
-     *  $key键值 $scope作用域 $value值
-     *
+     * @param $key string 键值
+     * @param $value string 存储的值
+     * @param $scope string 作用域
      * */
-    public static function set($key, $value, $scope = null)
+    public static function set($key, $value, $scope = null) : void
     {
         if(is_null($scope))
             $_SESSION[$key] = $value;
@@ -37,27 +37,28 @@ class Session
             $_SESSION[$scope][$key] = $value;
     }
 
-    /*
-     *
+    /**
      *  获取 session 值
      *
-     *  $key键值 $scope作用域
+     * @param $key string key键值
+     * @param $scope string 作用域
      *
+     * @return string 返回的值
      * */
     public static function get($key, $scope = null)
     {
         if(is_null($scope))
             return $_SESSION[$key];
         else
-            return$_SESSION[$scope][$key];
+            return $_SESSION[$scope][$key];
     }
 
-    /*
+    /**
      *
-     *  注销所有 session 值
+     *  注销掉当前用户的 session 值
      *
      * */
-    public static function destory()
+    public static function destroy():void
     {
         session_destroy();
     }

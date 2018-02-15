@@ -6,19 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76962d38-68e9-4a6d-8644-b5892cdb4aa8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/Controller.php" afterPath="$PROJECT_DIR$/apphp/Core/Controller.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/Model.php" afterPath="$PROJECT_DIR$/apphp/Core/Model.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/Route.php" afterPath="$PROJECT_DIR$/apphp/Core/Route.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/Route/Register.php" afterPath="$PROJECT_DIR$/apphp/Core/Route/Register.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/Storage/Cookie.php" afterPath="$PROJECT_DIR$/apphp/Core/Storage/Cookie.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/Storage/Session.php" afterPath="$PROJECT_DIR$/apphp/Core/Storage/Session.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/Core/request/Obtain.php" afterPath="$PROJECT_DIR$/apphp/Core/request/Obtain.php" />
-      <change beforePath="$PROJECT_DIR$/apphp/General/globalFunction.php" afterPath="$PROJECT_DIR$/apphp/General/globalFunction.php" />
-      <change beforePath="$PROJECT_DIR$/application/command/Controller/command.php" afterPath="$PROJECT_DIR$/application/command/Controller/command.php" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/config/cf3e72463ae12399e2c36e64ddb6a7ee.php" afterPath="$PROJECT_DIR$/bootstrap/config/cf3e72463ae12399e2c36e64ddb6a7ee.php" />
       <change beforePath="$PROJECT_DIR$/config/config.php" afterPath="$PROJECT_DIR$/config/config.php" />
-      <change beforePath="$PROJECT_DIR$/route/route.php" afterPath="$PROJECT_DIR$/route/route.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,44 +20,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="kernel.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/kernel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Route.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apphp/Core/Route.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="174" column="7" lean-forward="true" selection-start-line="174" selection-start-column="7" selection-end-line="174" selection-end-column="7" />
-              <folding>
-                <element signature="e#2697#2856#0#PHP" expanded="false" />
-                <element signature="e#2982#3118#0#PHP" expanded="false" />
-                <element signature="e#3245#3383#0#PHP" expanded="false" />
-                <element signature="e#3509#3645#0#PHP" expanded="false" />
-                <element signature="e#3774#3916#0#PHP" expanded="false" />
-                <element signature="e#4044#4192#0#PHP" expanded="false" />
-                <element signature="e#4262#4414#0#PHP" expanded="false" />
-                <element signature="e#4523#4654#0#PHP" expanded="false" />
-                <element signature="e#4709#4852#0#PHP" expanded="false" />
-                <element signature="e#4906#5037#0#PHP" expanded="false" />
-                <element signature="e#5091#5219#0#PHP" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="route.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/route/route.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="54">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Version.MD" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Version.MD">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="668">
+                <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -145,8 +114,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resource/view/System/module/create.html" />
-        <option value="$PROJECT_DIR$/apphp/Core/ApTemplet.php" />
         <option value="$PROJECT_DIR$/application/System/Controller/Module.php" />
         <option value="$PROJECT_DIR$/README.MD" />
         <option value="$PROJECT_DIR$/config/databaseconfig.php" />
@@ -187,7 +154,6 @@
         <option value="$PROJECT_DIR$/apphp/Core/Route.php" />
         <option value="$PROJECT_DIR$/application/test/Middleware/CheckTest.php" />
         <option value="$PROJECT_DIR$/apphp/Core/Middleware.php" />
-        <option value="$PROJECT_DIR$/config/config.php" />
         <option value="$PROJECT_DIR$/config/session.php" />
         <option value="$PROJECT_DIR$/apphp/General/globalFunction.php" />
         <option value="$PROJECT_DIR$/apphp/Core/Storage/Session.php" />
@@ -196,6 +162,9 @@
         <option value="$PROJECT_DIR$/apphp/Core/Storage/Cookie.php" />
         <option value="$PROJECT_DIR$/route/route.php" />
         <option value="$PROJECT_DIR$/../../note/Frame1.0/application/kernel.php" />
+        <option value="$PROJECT_DIR$/config/config.php" />
+        <option value="$PROJECT_DIR$/../../note/Frame1.0/Version.MD" />
+        <option value="$PROJECT_DIR$/Version.MD" />
       </list>
     </option>
   </component>
@@ -271,8 +240,7 @@
             <path>
               <item name="Frame1.0" type="b2602c69:ProjectViewProjectNode" />
               <item name="Frame1.0" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="application" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="test" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -290,19 +258,19 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\Programme\PHP\project\project_manger\apphp\Core" />
-      <recent name="G:\Programme\PHP\project\project_manger\apphp" />
-      <recent name="G:\Programme\PHP\project\project_manger\resource\view\System\module" />
-      <recent name="G:\Programme\PHP\project\project_manger\public\static\js" />
-      <recent name="G:\Programme\PHP\project\project_manger\public\static\css" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\Programme\PHP\project\project_manger\apphp\Core" />
       <recent name="G:\Programme\PHP\my\Frame\application\command\Controller" />
       <recent name="G:\Programme\PHP\my\Frame\application\Apocalypse\Controller" />
       <recent name="G:\Programme\PHP\my\Frame\application\test\Controller" />
       <recent name="G:\Programme\PHP\my\Frame\apphp\Facilitate" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Programme\PHP\my\Frame1.0" />
+      <recent name="G:\Programme\PHP\project\project_manger\apphp\Core" />
+      <recent name="G:\Programme\PHP\project\project_manger\apphp" />
+      <recent name="G:\Programme\PHP\project\project_manger\resource\view\System\module" />
+      <recent name="G:\Programme\PHP\project\project_manger\public\static\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -357,12 +325,12 @@
       <workItem from="1518350513236" duration="3057000" />
       <workItem from="1518533672773" duration="6156000" />
       <workItem from="1518595207387" duration="2426000" />
-      <workItem from="1518698119965" duration="7067000" />
+      <workItem from="1518698119965" duration="7842000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201408000" />
+    <option name="totallyTimeSpent" value="202183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="41" width="1938" height="1048" extended-state="6" />
@@ -418,20 +386,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apphp/Core/Database/Database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apphp/Core/Database/MsSql.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apphp/Core/Database/NoSql.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
@@ -720,14 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="37" column="48" lean-forward="false" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apphp/Core/Storage/Session.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="999">
@@ -809,10 +755,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/route/route.php">
+    <entry file="file://$PROJECT_DIR$/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="459">
+          <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/kernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
           <folding />
         </state>
       </provider>
@@ -837,11 +791,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/kernel.php">
+    <entry file="file://$PROJECT_DIR$/route/route.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+        <state relative-caret-position="54">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../note/Frame1.0/Version.MD">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Version.MD">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="668">
+            <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

@@ -20,7 +20,7 @@ define('BOOT_PATH', ROOT_PATH.'bootstrap/');  // 引导应用目录
 define('CONFIG_PATH', ROOT_PATH.'config/');  // 框架的配置目录
 define('RESOURCE_PATH', ROOT_PATH.'resource/');  // 资源目录
 define('APP_NAMESPACE', 'app');
-define('APPHP_VER','beta v 1.01');
+define('APPHP_VER','beta v 1.1');
 
 // 注册服务
 define('APP_SERVICE', require CONFIG_PATH . 'app.php');

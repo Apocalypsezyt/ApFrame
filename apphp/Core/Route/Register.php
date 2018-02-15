@@ -14,25 +14,56 @@ use apphp\error\error;
 trait Register
 {
 
+    protected $middleware; // 中间件
+
+    public function __construct()
+    {
+        $kernel = require APP_PATH . 'kernel.php';
+        $this->middleware = $kernel['middleware'];
+    }
+
     /**
      *  注册一个路由
      *
      * @param string $key 键值
-     * @param \Closure | string 控制器或方法
+     * @param \Closure | string | array 控制器或方法
      * @param string 组名
      * 
      * */
     protected function registerRoute($key, $function, $group = 'get')
     {
+        $middleware = '';
+        $as = '';
+
+        if(is_array($function)){
+            $middleware = $function['middleware'] ?? null;
+            $as = $function['as'] ?? null;
+            $function = $function['function'] ?? null;
+        }
+
         // 检查首尾是否有斜杠
         $key = $this->hasSlash($key);
         // 当注册自定义的路由方法
         if($function instanceof \Closure)
         {
-            $this->route_group[$group][$key] = function($param) use ($function){
-                $param = $param[0] ?? [];
-                call_user_func($function, $param);
-            };
+            // 如果有中间件则注册中间件
+            if($middleware){
+                $middleware_class = $this->middleware[$middleware];
+                $this->route_group[$group][$key] = function($param) use ($function, $middleware_class){
+                    $function = function() use($function, $param){
+                        $param = $param[0] ?? [];
+                        call_user_func($function, $param);
+                    };
+                    $middleware = new $middleware_class();
+                    $middleware->handle($function);
+                };
+            }
+            else{
+                $this->route_group[$group][$key] = function($param) use ($function){
+                    $param = $param[0] ?? [];
+                    call_user_func($function, $param);
+                };
+            }
         }
 
         // 当注册控制器里的方法时
@@ -43,16 +74,36 @@ trait Register
             $controller = $array[1] ?? 'Index';
             $action = $array[2] ?? 'Index';
 
-            $this->route_group[$group][$key] = function ($param) use ($module, $controller, $action){
-                $controller = '\\' . APP_NAMESPACE . '\\' . $module . '\\Controller\\' . $controller;
-                // 不存在该方法时
-                if(!method_exists($controller, $action)){
-                    error::ActiveError('found_class_function_nohas', "${controller}中的${action}方法不存在");
-                }
-                $reflection_method = new \ReflectionMethod($controller, $action);
-                $controller = new $controller;
-                $reflection_method->invokeArgs($controller, $param);
-            };
+            // 如果有中间件则注册中间件
+            if($middleware){
+                $middleware_class = $this->middleware[$middleware];
+                $this->route_group[$group][$key] = function ($param) use ($module, $controller, $action, $middleware_class){
+                    $function = function() use ($module, $controller, $action, $param){
+                        $controller = '\\' . APP_NAMESPACE . '\\' . $module . '\\Controller\\' . $controller;
+                        // 不存在该方法时
+                        if(!method_exists($controller, $action)){
+                            error::ActiveError('found_class_function_nohas', "${controller}中的${action}方法不存在");
+                        }
+                        $reflection_method = new \ReflectionMethod($controller, $action);
+                        $controller = new $controller;
+                        $reflection_method->invokeArgs($controller, $param);
+                    };
+                    $middleware = new $middleware_class();
+                    $middleware->handle($function);
+                };
+            }
+            else{
+                $this->route_group[$group][$key] = function ($param) use ($module, $controller, $action, $middleware){
+                    $controller = '\\' . APP_NAMESPACE . '\\' . $module . '\\Controller\\' . $controller;
+                    // 不存在该方法时
+                    if(!method_exists($controller, $action)){
+                        error::ActiveError('found_class_function_nohas', "${controller}中的${action}方法不存在");
+                    }
+                    $reflection_method = new \ReflectionMethod($controller, $action);
+                    $controller = new $controller;
+                    $reflection_method->invokeArgs($controller, $param);
+                };
+            }
         }
     }
 
@@ -108,11 +159,11 @@ trait Register
      * @method protected 注册一组 restful 路由 (index,create,show,edit,store,update,delete)
      *
      * @param string $key 路由键
-     * @param string $key 控制器名
+     * @param string $controller 控制器名
      *
      * @return bool
      * */
-    protected function restful($key,$controller) : bool
+    protected function restful($key, $controller) : bool
     {
         // 声明 restful 路由的方法
         $index = $controller . '.index';

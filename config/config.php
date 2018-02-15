@@ -35,16 +35,18 @@ define("USE_STYLE", true);
 // 是否开启严格模式
 define('STRICT_MODE',true);
 // 加载自定义错误
-define('APPHP_ERROR',require_once ROOT_PATH."/config/errorconfig.php");
+define('APPHP_ERROR',require_once CONFIG_PATH . "/errorconfig.php");
 // 加载数据库配置文件
-require_once ROOT_PATH."/config/databaseconfig.php";
+require_once CONFIG_PATH . "databaseconfig.php";
 // 加载样式配置文件
-require_once ROOT_PATH."/config/styleconfig.php";
-// 加载CSRF配置文件
-require_once ROOT_PATH. "/config/csrfconfig.php";
+require_once CONFIG_PATH . "styleconfig.php";
+// 加载 CSRF 配置文件
+require_once CONFIG_PATH . "csrfconfig.php";
+// 加载 session 配置文件
+require_once CONFIG_PATH . 'session.php';
 
 // 框架自带服务
 // 微信类服务的启用
 define('USE_WECHAT',true);
 // 加载微信配置文件
-require_once ROOT_PATH. "/config/custom/wechat.config.php";
+require_once CONFIG_PATH . "custom/wechat.config.php";

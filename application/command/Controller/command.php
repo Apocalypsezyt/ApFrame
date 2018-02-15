@@ -366,8 +366,9 @@ EOF;
         if(!file_exists($dir))
         {
             mkdir($dir, 777, true);
-            mkdir($dir.'/Controller', 777, true);   // 创建控制器文件夹
-            mkdir($dir.'/Model', 777, true);   // 创建模型文件夹
+            mkdir($dir . '/Controller', 777, true);   // 创建控制器文件夹
+            mkdir($dir . '/Model', 777, true);   // 创建模型文件夹
+            mkdir($dir . '/Middleware', 777, true); // 创建中间件文件夹
 
             return json(['code' => 'success', 'status' => '创建模块成功']);
         }

@@ -25,15 +25,10 @@ function asset($src)
 
 /*
  *  快速使用session操作
- *
- *  $key键值 $value如果为null 则为获取
  * */
-function session($key, $value = null)
+function session()
 {
-    if(is_null($value))
-        return \apphp\Core\Storage\Session::get($key);
-    else
-        \apphp\Core\Storage\Session::set($key,$value);
+    return \apphp\Core\Storage\Session::instance();
 }
 
 /*

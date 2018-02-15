@@ -14,26 +14,19 @@ abstract class Controller
     protected static $instance;
     protected $ApTemplet;
 
-    /*
-     * 该方法主要初始化一下模板方法
-     *
-     *
+    /**
+     * 该方法初始化控制器要用的工具
      * */
     function __construct()
     {
         $this->ApTemplet = new ApTemplet();
-//        $this->smarty->template_dir = ROOT_PATH.'view/';
-//        $this->smarty->compile_dir = COMPILE_DIR;
-//        $this->smarty->left_delimiter = LEFT_DELIMITER;
-//        $this->smarty->right_delimiter = RIGHT_DELIMITER;
     }
 
-    /*
-     *
-     *  将控制器实例化并返回
-     *
+    /**
+     * 将控制器实例化并返回
+     * @return Controller
      * */
-    public static function instance()
+    public static function instance() : Controller
     {
         if(empty(self::$instance))
         {
@@ -51,7 +44,6 @@ abstract class Controller
      *  @param array $data 数据
      *
      * @return string 返回渲染好的 HTML 模板
-     *
      * */
     protected function view($view_name, array $data = null)
     {

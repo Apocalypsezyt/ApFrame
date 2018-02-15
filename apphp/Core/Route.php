@@ -25,6 +25,7 @@ class Route
     protected $route_group; // 所有路由请求组
 
     use Register,Found{
+        Register::__construct as registerInit;
         Register::get as registerGet;
         Register::post as registerPost;
         Register::put as registerPut;
@@ -40,7 +41,7 @@ class Route
      * */
     function __construct()
     {
-
+        $this->registerInit();
     }
 
     /*
@@ -170,10 +171,9 @@ class Route
         $route->registerRestful($key, $controller);
     }
 
-    /*
-     *
-     *  获得当前的请求方式
-     *
+    /**
+     * 获得当前的请求方式
+     * @return string 当前请求方式
      * */
     public function getNowMethod()
     {
@@ -229,6 +229,5 @@ class Route
             return $this->param;
         return false;
     }
-
 
 }

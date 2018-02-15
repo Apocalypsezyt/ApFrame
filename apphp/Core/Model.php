@@ -12,7 +12,7 @@ namespace apphp\Core;
 use apphp\database\Database;
 use apphp\error\error;
 
-abstract class Model
+abstract class Model implements \ArrayAccess
 {
     /**
      * @access protected
@@ -59,6 +59,11 @@ abstract class Model
      * @name string $where 当前条件
      * */
     protected $where;
+    /**
+     * @access protected
+     * @name string $data 查询到的数据
+     * */
+    protected $data;
 
     /**
      *  @method public 构造函数
@@ -168,11 +173,11 @@ abstract class Model
     {
         $specif_field = $this->specificFieldToString();
         $info = $this->connection->selectSpecificField($specif_field, $this->table, $this->where, $this->limit);
-        $group = new Collection($info);
 
+        //$group = new Collection($info);
         //return $group;
 
-        return$info;
+        return $info;
     }
 
     /**
@@ -305,6 +310,26 @@ abstract class Model
         $info = $method->invokeArgs($refection, [$foreign_key, '1']);
 
         return $info;
+    }
+
+    public function offsetExists($offset)
+    {
+        // TODO: Implement offsetExists() method.
+    }
+
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
+    }
+
+    public function offsetUnset($offset)
+    {
+        // TODO: Implement offsetUnset() method.
     }
 
 }

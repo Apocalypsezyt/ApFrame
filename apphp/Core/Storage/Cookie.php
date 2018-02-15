@@ -22,41 +22,45 @@ class Cookie
             session_start();
     }
 
-    /*
+    /**
+     *  设置 cookie 值
      *
-     *  设置 session 值
-     *
-     *  $key键值 $scope作用域 $value值
+     * @param string $key 键值
+     * @param string $value 值
+     * @param mixed $time 过期时间
+     * @param string $scope 作用域
      *
      * */
-    public static function set($key, $value, $time = 3600 * 24 * 2, $scope = null)
+    public static function set($key, $value, $time = 3600 * 24 * 2, $scope = '/')
     {
-        setcookie($key,$value,$time);
+        setcookie($key, $value, $time, $scope);
     }
 
-    /*
+    /**
+     *  获取 cookie 值
      *
-     *  获取 session 值
+     * @param string $key 键值
+     * @param string $scope 作用域
      *
-     *  $key键值 $scope作用域
-     *
+     * @return string 获取到的 cookie 值
      * */
     public static function get($key, $scope = null)
     {
         if(is_null($scope))
-            return $_SESSION[$key];
+            return $_COOKIE[$key];
         else
-            return$_SESSION[$scope][$key];
+            return $_COOKIE[$scope][$key];
     }
 
-    /*
+    /**
+     *  注销指定 cookie 值
      *
-     *  注销所有 session 值
+     * @param $key string 键值
      *
      * */
-    public static function destory()
+    public static function destroy($key)
     {
-        session_destroy();
+        setcookie($key, '', time()-10);
     }
 
 }

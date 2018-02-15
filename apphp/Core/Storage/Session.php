@@ -11,6 +11,41 @@ namespace apphp\Core\Storage;
 
 class Session
 {
+
+    protected static $instance;
+
+    /**
+     * Session 做初始化
+     * 首先先指定它存储的目录
+     * */
+    function __construct()
+    {
+        $driver = strtolower(SESSION_DRIVER);
+        switch ($driver){
+            case 'file':
+                        ini_set('session.save_path', ROOT_PATH . 'runtime/session/');
+                        break;
+            case 'redis':
+                        ini_set('session.save_path', 'redis');
+                        ini_set('session.save_handler', 'tcp://127.0.0.1');
+                        break;
+        }
+    }
+
+    /**
+     * 静态方法实例化
+     *
+     * @return Session 返回实例化好的 Session 对象
+     * */
+    public static function instance() : Session
+    {
+        if(is_null(self::$instance)){
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+
     /**
      *
      * 启用 session 或者 关闭 session
@@ -58,7 +93,7 @@ class Session
      *  注销掉当前用户的 session 值
      *
      * */
-    public static function destroy():void
+    public static function destroy() : void
     {
         session_destroy();
     }

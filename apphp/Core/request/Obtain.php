@@ -60,7 +60,7 @@ trait Obtain
      *
      * @return string 获取到的值并转义
      * */
-    public function achieve($request_key)
+    public function achieve($request_key) : string
     {
 
         $obtain_info = '';
@@ -99,7 +99,7 @@ trait Obtain
      *
      * @return string 获取到的数据
      * */
-    protected function obtainGet($key)
+    protected function obtainGet($key) : string
     {
         return $_GET[$key] ?? false;
     }
@@ -111,7 +111,7 @@ trait Obtain
      *
      * @return string 获取到的数据
      * */
-    protected function obtainPost($key)
+    protected function obtainPost($key) : string
     {
         return $_POST[$key] ?? false;
     }

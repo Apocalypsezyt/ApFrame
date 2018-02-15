@@ -5,7 +5,7 @@
   'MYSQL_HOST' => 'localhost',
   'MYSQL_USER' => 'root',
   'MYSQL_PASSWORD' => 'callofduty321',
-  'MYSQL_DATABASE' => 'enterprise',
+  'MYSQL_DATABASE' => 'test',
   'MYSQL_PORT' => '3306',
   'MYSQL_CHARSET' => 'utf8',
   'MSSQL_HOST' => 'localhost',

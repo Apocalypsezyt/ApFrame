@@ -18,10 +18,13 @@ Route::get('/test', function (){
     dd($test->where('name', 'kotori')->get());
 });
 
-Route::get('/test' , ['middleware' => 'test', 'function' => function(){
-
-}]);
 
 Route::get('/m/test', 'test.test.all');
 
 Route::get('/m/test/{name}', ['middleware' => 'test', 'function' => 'test.test.index']);
+
+Route::group([], function (){
+   Route::get('/kotori', function (){
+       dd('南小鸟');
+   });
+});

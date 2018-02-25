@@ -31,12 +31,12 @@ class Route
         Register::put as registerPut;
         Register::delete as registerDelete;
         Register::restful as registerRestful;
+        Register::group as registerGroup;
     }
 
-    /*
+    /**
      *
      *  用于初始化路由
-     *
      *
      * */
     function __construct()
@@ -44,7 +44,7 @@ class Route
         $this->registerInit();
     }
 
-    /*
+    /**
      *
      *  初始化该类
      *
@@ -77,8 +77,24 @@ class Route
             $now_method = $this->getNowMethod();
             // 查找是否在路由注册表中
             if($group = $this->foundHasRoute($this->hasSlash($path), $now_method)) {
-                $reflection_function = new \ReflectionFunction($group['route']);
-                $reflection_function->invoke($group['param']);
+                // 获取别名、中间件、方法
+                $as = $group['route']['as'];
+                $middleware = $group['route']['middleware'];
+                $function = $group['route']['function'];
+
+                $reflection_function = new \ReflectionFunction($function);
+
+                if($middleware){
+                    $middleware_class = new \ReflectionClass($middleware);
+                    $middleware = $middleware_class->newInstance();
+                    $function = function() use ($reflection_function, $group){
+                        $reflection_function->invoke($group['param']);
+                    };
+                    $middleware->handle($function);
+                }
+                else{
+                    $reflection_function->invoke($group['param']);
+                }
             }
             // 不在路由注册表中走默认的方式
             else {
@@ -169,6 +185,16 @@ class Route
     {
         $route = self::instance();
         $route->registerRestful($key, $controller);
+    }
+
+    /**
+     * 注册路由组
+     * @param array $config 配置数组
+     * @param \Closure $function 路由组方法
+     * */
+    public static function group($config, $function)
+    {
+        $function();
     }
 
     /**

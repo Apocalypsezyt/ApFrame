@@ -348,7 +348,7 @@ EOF;
 
     }
 
-    /*
+    /**
      *
      *  添加模块
      *
@@ -376,7 +376,7 @@ EOF;
             return json(['code' => 'error', 'status' => '文件夹已存在']);
     }
 
-    /*
+    /**
      *
      *  添加控制器
      *
@@ -450,7 +450,7 @@ EOF;
             return json(['code' => 'error', 'status' => '该模型已存在']);
     }
 
-    /*
+    /**
      *
      *  获取所有模块
      *
@@ -471,7 +471,7 @@ EOF;
         return json([ 'dir' =>  $dirs]);
     }
 
-    /*
+    /**
      *
      *  获取模块中所有控制器
      *
@@ -493,7 +493,7 @@ EOF;
         return json([ 'dir' =>  $dirs]);
     }
 
-    /*
+    /**
      *
      *  获取模块中所有模型
      *
@@ -515,7 +515,7 @@ EOF;
         return json([ 'dir' =>  $dirs]);
     }
 
-    /*
+    /**
      *
      *  缓存配置文件
      *
@@ -527,7 +527,7 @@ EOF;
         return $cache->cacheConfig() ? json([ 'status' =>  "缓存成功"]) : json([ 'status' =>  "缓存失败"]);
     }
 
-    /*
+    /**
      *
      *  获取当前版本
      *

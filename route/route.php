@@ -22,4 +22,6 @@ Route::get('/test' , ['middleware' => 'test', 'function' => function(){
 
 }]);
 
-Route::get('/m/test', ['middleware' => 'test', 'function' => 'test.test.index']);
+Route::get('/m/test', 'test.test.all');
+
+Route::get('/m/test/{name}', ['middleware' => 'test', 'function' => 'test.test.index']);

@@ -11,15 +11,18 @@ namespace apphp;
 
 use apphp\Core\Request;
 use apphp\Core\Route;
-use apphp\Core\Storage\session;
+use apphp\Core\Storage\Session;
 
 class Init
 {
+
+    protected static $app;
+
     public static function initAll()
     {
         // composer vendor 组件自动加载
         require_once "../vendor/autoload.php";
-        // ApFrame自动加载文件并注册
+        // ApFrame 自动加载文件并注册
         require_once ROOT_PATH . "apphp/autoload.php";
         spl_autoload_register("\\apphp\\autoload::autoload");
         // 加载全局函数
@@ -34,6 +37,8 @@ class Init
         //loadStyle::loadCss(CSS_ARRAY);
         //loadStyle::loadScript(JS_ARRAY); DEBUG 1 问题无法完全输出js_array只输出了一个
 
+        // 容器初始化
+        self::initContainer();
         // 开始执行程序
         self::exec();
 
@@ -49,12 +54,22 @@ class Init
         // 加载所使用的数据库
 
         // 启动或者不启用session
-        session::start();
+        Session::start();
 
         // 路由配置文件
         require_once ROOT_PATH.'route/route.php';
 
         // 开始使用路由
         Route::run();
+    }
+
+    /**
+     * 容器初始化
+     *
+     *
+     * */
+    protected static function initContainer()
+    {
+        self::$app = new Container();
     }
 }

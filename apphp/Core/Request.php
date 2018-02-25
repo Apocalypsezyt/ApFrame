@@ -10,6 +10,7 @@ namespace apphp\Core;
 
 
 use apphp\Core\request\Obtain;
+use apphp\Core\Storage\Session;
 use apphp\error\error;
 
 class Request
@@ -99,35 +100,12 @@ class Request
         return $is_has;
     }
 
-    /*
-     *  获取当前模块名
-     *
-     *  @return 模块名
+    /**
+     * 返回 session 实例
+     * @return Session
      * */
-    public function module()
+    public function session()
     {
-
+        return Session::instance();
     }
-
-    /*
-     *  获取当前控制器名
-     *
-     *  @return 控制器
-     * */
-    public function controller()
-    {
-
-    }
-
-    /*
-     *  获取当前方法
-     *
-     *  @return 方法
-     * */
-    public function action()
-    {
-
-    }
-
-
 }

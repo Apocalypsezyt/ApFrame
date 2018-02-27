@@ -93,7 +93,7 @@ class Route
                     $middleware->handle($function);
                 }
                 else{
-                    $reflection_function->invoke($group['param']);
+                    return $reflection_function->invoke($group['param']);
                 }
             }
             // 不在路由注册表中走默认的方式
@@ -135,7 +135,7 @@ class Route
     /**
      * 注册 get 路由
      * @param string $key 路由名
-     * @param \Closure | string $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串
      * */
     public static function get($key, $function)
     {
@@ -146,7 +146,7 @@ class Route
     /**
      * 注册 post 路由
      * @param string $key 路由名
-     * @param \Closure | string $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串
      * */
     public static function post($key, $function)
     {
@@ -157,7 +157,7 @@ class Route
     /**
      * 注册 put 路由
      * @param string $key 路由名
-     * @param \Closure | string $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串
      * */
     public static function put($key, $function)
     {
@@ -168,7 +168,7 @@ class Route
     /**
      * 注册 delete 路由
      * @param string $key 路由名
-     * @param \Closure | string $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串
      * */
     public static function delete($key, $function)
     {

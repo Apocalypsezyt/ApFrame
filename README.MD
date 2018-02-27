@@ -2,6 +2,8 @@
 
 我学习了其他人开发的开源PHP框架
 
+请开始时使用 ``` composer install ```
+
 > laravel,Thinkphp
 
 这个 PHP 的 MVC 框架模仿了他人的功能，你可以在使用的方法中看到它与别人的许多相似

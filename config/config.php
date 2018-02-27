@@ -23,7 +23,7 @@ define('APP_NAMESPACE', 'app');
 define('APPHP_VER','beta v 1.1');
 
 // 注册服务
-define('APP_SERVICE', require CONFIG_PATH . 'app.php');
+define('APP_SERVICE', require CONFIG_PATH . '/app.php');
 // 是否启用command
 define('USE_COMMAND', readSet('USE_COMMAND', true));
 // 是否开启session
@@ -34,6 +34,8 @@ define("USE_DATABASE", readSet('USE_DATABASE'));
 define("USE_STYLE", true);
 // 是否开启严格模式
 define('STRICT_MODE',true);
+// 报错方式 frame为框架自带报错 whoops则为该报错
+define('APPHP_ERROR_MODE', readSet('APPHP_ERROR_MODE', 'frame'));
 // 加载自定义错误
 define('APPHP_ERROR',require_once CONFIG_PATH . "/errorconfig.php");
 // 加载数据库配置文件

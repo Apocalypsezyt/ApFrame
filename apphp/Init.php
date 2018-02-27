@@ -12,6 +12,7 @@ namespace apphp;
 use apphp\Core\Request;
 use apphp\Core\Route;
 use apphp\Core\Storage\Session;
+use apphp\Core\Error\error;
 
 class Init
 {
@@ -20,18 +21,15 @@ class Init
 
     public static function initAll()
     {
-        // composer vendor 组件自动加载
-        require_once "../vendor/autoload.php";
-        // ApFrame 自动加载文件并注册
-        require_once ROOT_PATH . "apphp/autoload.php";
-        spl_autoload_register("\\apphp\\autoload::autoload");
+        // 加载自动加载文件
+        require ROOT_PATH . 'bootstrap/autoload/autoload.php';
         // 加载全局函数
-        require_once "general/globalFunction.php";
+        require_once "General/globalFunction.php";
         // 加载配置文件
         require_once ROOT_PATH . 'config/config.php';
 
-        // 启用本库自定义错误
-        set_error_handler("\\apphp\\error\\error::showError");
+        // 初始化错误
+        Error::Init();
 
         // 自动加载样式
         //loadStyle::loadCss(CSS_ARRAY);
@@ -39,9 +37,8 @@ class Init
 
         // 容器初始化
         self::initContainer();
-        // 开始执行程序
-        self::exec();
 
+        return new static();
     }
 
     /*
@@ -49,7 +46,7 @@ class Init
      *  执行程序
      *
      * */
-    private static function exec()
+    public function exec()
     {
         // 加载所使用的数据库
 

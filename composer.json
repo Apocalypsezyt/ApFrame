@@ -1,6 +1,9 @@
 {
   "require" : {
-    "predis/predis": "^1.1"
+    "predis/predis": "^1.1",
+    "nine/dd": "^1.0",
+    "filp/whoops": "^2.1",
+    "symfony/var-dumper": "^4.0"
   },
   "repositories": {
     "packagist": {

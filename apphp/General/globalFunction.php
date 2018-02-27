@@ -48,7 +48,7 @@ function obtain($request)
  * */
 function dd($var)
 {
-    $type = gettype($var);
+    /*$type = gettype($var);
     switch ($type)
     {
         case 'int':
@@ -62,6 +62,8 @@ function dd($var)
                     var_dump($var);
                     break;
     }
+    exit();*/
+    \dd\Dump::dump($var);
     exit();
 }
 

@@ -6,15 +6,31 @@
  * Time: 11:30
  */
 
-namespace apphp\error;
+namespace apphp\Core\Error;
 
 
-class error
+class Error
 {
     public static function showError($errNo, $errMsg, $errFile, $errLine)
     {
         // 加载自定义错误页面
         require_once APPHP_PATH."/error/page/error.php";
+    }
+
+    /*
+     * 错误类初始化
+     * */
+    public static function Init()
+    {
+        if(APPHP_ERROR_MODE == 'frame'){
+            // 启用本库自定义错误
+            set_error_handler("\\apphp\\error\\error::showError");
+        }
+        elseif(APPHP_ERROR_MODE == 'whoops'){
+            $whoops = new \Whoops\Run;
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            $whoops->register();
+        }
     }
 
     /*

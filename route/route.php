@@ -25,6 +25,7 @@ Route::get('/m/test/{name}', ['middleware' => 'test', 'function' => 'test.test.i
 
 Route::group([], function (){
    Route::get('/kotori', function (){
+       dd('123');
        dd('南小鸟');
    });
 });

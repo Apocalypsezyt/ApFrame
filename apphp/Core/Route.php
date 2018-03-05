@@ -9,10 +9,10 @@
 namespace apphp\Core;
 
 
+use apphp\Core\Route\Feature;
 use apphp\Core\Route\Found;
 use apphp\Core\Route\Register;
-use apphp\Core\Safe\Csrf;
-use apphp\error\error;
+use apphp\Core\Error\Error;
 
 class Route
 {
@@ -24,7 +24,7 @@ class Route
     protected $param;   // 值
     protected $route_group; // 所有路由请求组
 
-    use Register,Found{
+    use Register,Found,Feature{
         Register::__construct as registerInit;
         Register::get as registerGet;
         Register::post as registerPost;
@@ -59,6 +59,19 @@ class Route
     }
 
     /**
+     * 获取当前路由名称
+     * */
+    protected function getRouteName()
+    {
+        $path = $this->removalSlash($_SERVER['REQUEST_URI']);
+        // 排除掉?后面的字符串
+        if(strpos($path,'?'))
+            $path = substr($path,0,strpos($path,'?'));
+
+        return $path;
+    }
+
+    /**
      *
      *  开始进行路由分配
      *
@@ -67,20 +80,22 @@ class Route
     {
         if(isset($_SERVER['REQUEST_URI']))
         {
-            $path = $this->hasSlash($_SERVER['REQUEST_URI']);
-            // 排除掉?后面的字符串
-            if(strpos($path,'?'))
-                $path = substr($path,0,strpos($path,'?'));
+            $path = $this->getRouteName();
             $path_arr = explode('/',trim($path,'/'));
 
             // 获得当前请求方式
             $now_method = $this->getNowMethod();
             // 查找是否在路由注册表中
-            if($group = $this->foundHasRoute($this->hasSlash($path), $now_method)) {
+
+            if($group = $this->foundHasRoute($path, $now_method)) {
                 // 获取别名、中间件、方法
                 $as = $group['route']['as'];
                 $middleware = $group['route']['middleware'];
                 $function = $group['route']['function'];
+
+                if(!$this->checkGlobalMiddleware()){
+                    return false;
+                }
 
                 $reflection_function = new \ReflectionFunction($function);
 
@@ -135,7 +150,7 @@ class Route
     /**
      * 注册 get 路由
      * @param string $key 路由名
-     * @param \Closure | string | array $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串又或者集成的一个数组
      * */
     public static function get($key, $function)
     {
@@ -146,7 +161,7 @@ class Route
     /**
      * 注册 post 路由
      * @param string $key 路由名
-     * @param \Closure | string | array $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串又或者集成的一个数组
      * */
     public static function post($key, $function)
     {
@@ -157,7 +172,7 @@ class Route
     /**
      * 注册 put 路由
      * @param string $key 路由名
-     * @param \Closure | string | array $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串又或者集成的一个数组
      * */
     public static function put($key, $function)
     {
@@ -168,7 +183,7 @@ class Route
     /**
      * 注册 delete 路由
      * @param string $key 路由名
-     * @param \Closure | string | array $function 函数或控制器的方法字符串
+     * @param \Closure | string | array $function 函数或控制器的方法字符串又或者集成的一个数组
      * */
     public static function delete($key, $function)
     {
@@ -179,7 +194,7 @@ class Route
     /**
      * 注册 restful 路由
      * @param string $key 路由名
-     * @param \Closure | string $controller 控制器名的字符串
+     * @param array | string $controller 控制器名的字符串或者集成的一个数组
      * */
     public static function restful($key, $controller)
     {
@@ -195,6 +210,24 @@ class Route
     public static function group($config, $function)
     {
         $function();
+    }
+
+    /**
+     * 检测全局中间件
+     *
+     * @return bool 如果通过全局检测中间件 返回true，若不通过返回 false
+    * */
+    protected function checkGlobalMiddleware()
+    {
+        foreach ($this->global_middleware as $item){
+            $middleware = new $item();
+            // 没有方法的中间件
+            if(!$middleware->handle(function (){})){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

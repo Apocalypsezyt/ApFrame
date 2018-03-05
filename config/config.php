@@ -47,6 +47,9 @@ require_once CONFIG_PATH . "csrfconfig.php";
 // 加载 session 配置文件
 require_once CONFIG_PATH . 'session.php';
 
+// 使用什么方式加密
+define('PASSWORD_HASH', PASSWORD_DEFAULT);
+
 // 框架自带服务
 // 微信类服务的启用
 define('USE_WECHAT',true);

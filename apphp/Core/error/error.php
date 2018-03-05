@@ -8,13 +8,15 @@
 
 namespace apphp\Core\Error;
 
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 class Error
 {
     public static function showError($errNo, $errMsg, $errFile, $errLine)
     {
         // 加载自定义错误页面
-        require_once APPHP_PATH."/error/page/error.php";
+        require_once APPHP_PATH ."Core/Error/page/error.php";
     }
 
     /*
@@ -24,11 +26,12 @@ class Error
     {
         if(APPHP_ERROR_MODE == 'frame'){
             // 启用本库自定义错误
-            set_error_handler("\\apphp\\error\\error::showError");
+            //set_error_handler("\\apphp\\Core\\Error\\error::showError");
+            set_error_handler("\\apphp\\Core\\Error\\Error::showError");
         }
         elseif(APPHP_ERROR_MODE == 'whoops'){
-            $whoops = new \Whoops\Run;
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            $whoops = new Run();
+            $whoops->pushHandler(new PrettyPageHandler());
             $whoops->register();
         }
     }
@@ -43,7 +46,7 @@ class Error
         $errorNo = $errorNo;
         $errorMsg = $msg ?? self::getError($errorNo);
         // 加载自定义主动调用错误的页面
-        require_once APPHP_PATH."/error/page/ActiveError.php";
+        require_once APPHP_PATH."/Core/Error/page/ActiveError.php";
         exit();
     }
 

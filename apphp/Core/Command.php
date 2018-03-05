@@ -23,6 +23,6 @@ abstract class Command
      * */
     protected function line($info)
     {
-        echo $info;
+        echo $info . "\n";
     }
 }

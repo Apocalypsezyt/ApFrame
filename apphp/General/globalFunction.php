@@ -24,14 +24,6 @@ function asset($src)
 }
 
 /*
- *  快速使用session操作
- * */
-function session()
-{
-    return \apphp\Core\Storage\Session::instance();
-}
-
-/*
  *  快速使用方法获取数据
  *
  *  $request要求
@@ -63,7 +55,7 @@ function dd($var)
                     break;
     }
     exit();*/
-    \dd\Dump::dump($var);
+    dump($var);
     exit();
 }
 
@@ -124,4 +116,26 @@ function many_to_many($pk_id, $and_table, $to_table, $fk_id, $value)
     $assoc = $query->fetch_all(MYSQLI_ASSOC);
 
     return $assoc;
+}
+
+function csrf_token()
+{
+    return session()->get('csrf_token', 'Auth');
+}
+
+/**
+ * @return \apphp\Core\Response 返回 Response 对象
+ * */
+function Response()
+{
+    return new \apphp\Core\Response();
+}
+
+/**
+ * 快速使用session操作
+ * @return \apphp\Core\Storage\Session 返回 Session 对象
+ * */
+function session()
+{
+    return \apphp\Core\Storage\Session::instance();
 }

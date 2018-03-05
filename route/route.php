@@ -15,9 +15,11 @@ Route::get('/', function(){
 
 Route::get('/test', function (){
     $test = new \app\test\model\test();
+    dd($test->getAll());
     dd($test->where('name', 'kotori')->get());
 });
 
+Route::restful('user', ['middleware' => 'test', 'controller' => 'test.User']);
 
 Route::get('/m/test', 'test.test.all');
 
@@ -29,3 +31,5 @@ Route::group([], function (){
        dd('南小鸟');
    });
 });
+
+Route::restful('/resource', 'test.resource');

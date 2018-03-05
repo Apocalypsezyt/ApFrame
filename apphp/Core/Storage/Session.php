@@ -83,9 +83,9 @@ class Session
     public static function get($key, $scope = null)
     {
         if(is_null($scope))
-            return $_SESSION[$key];
+            return $_SESSION[$key] ?? null;
         else
-            return $_SESSION[$scope][$key];
+            return $_SESSION[$scope][$key] ?? null;
     }
 
     /**

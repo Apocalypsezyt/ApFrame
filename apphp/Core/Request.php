@@ -9,7 +9,7 @@
 namespace apphp\Core;
 
 
-use apphp\Core\request\Obtain;
+use apphp\Core\Request\Obtain;
 use apphp\Core\Storage\Session;
 use apphp\error\error;
 
@@ -41,7 +41,7 @@ class Request
      * */
     function __get($name)
     {
-        return $this->achieve($name) ?? 'undefined';
+        return $this->achieve($name) ?? null;
     }
 
     /**
@@ -61,7 +61,7 @@ class Request
 
 
 
-    /*
+    /**
      *  判断一个变量是否设置
      *
      *
@@ -107,5 +107,16 @@ class Request
     public function session()
     {
         return Session::instance();
+    }
+
+    /**
+     * 获取当前的请求方式
+     * @return string 请求的方式
+     * */
+    public function method()
+    {
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        return strtolower($method);
     }
 }

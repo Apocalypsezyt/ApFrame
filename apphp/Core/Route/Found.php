@@ -11,17 +11,6 @@ namespace apphp\Core\Route;
 
 trait Found
 {
-    /**
-     * @method protected 判断路由第一个字符是不是斜杠,如果存在就去掉斜杠
-     *
-     *  @param string route 路由名
-     *
-     *  @return array|bool 返回以数组形式存在的数据
-     * */
-    protected function hasSlash($route)
-    {
-        return $route;
-    }
 
     /**
      *
@@ -32,7 +21,7 @@ trait Found
      *
      *  @return array | bool 返回这个路由组级路由名和参数
      * */
-    protected function foundHasRoute($url,$method_group)
+    protected function foundHasRoute($url, $method_group)
     {
         // 没有参数默认执行该方法
         if(isset($this->route_group[$method_group][$url])){

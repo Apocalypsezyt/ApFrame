@@ -15,7 +15,7 @@ class CheckTest extends Middleware
 {
     public function handle(\Closure $next)
     {
-        if(true){
+        if(false){
             header('Location:/');
         }
 

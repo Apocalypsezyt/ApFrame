@@ -10,19 +10,23 @@ namespace apphp\Core;
 
 
 use apphp\Core\Cache\Config;
+//use apphp\Core\Cache\Route;
 
 class Cache
 {
 
     protected static $instance;
 
-    use Config{
+    use Config/*,Route*/{
         Config::cache as CacheConfigs;
         Config::read as ReadConfigs;
+        //Route::cache as RouteConfigs;
     }
 
     /**
      * 实例化一个 Cache 对象
+     *
+     * @return Cache
      * */
     public static function instance()
     {

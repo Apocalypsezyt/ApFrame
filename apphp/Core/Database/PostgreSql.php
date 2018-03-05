@@ -15,8 +15,15 @@ class PostgreSql implements Database
 
     function __construct()
     {
-        $this->conn = new \mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, MYSQL_PORT);
-        $this->conn->set_charset(MYSQL_CHARSET);
+        $host = PGSQL_HOST;
+        $port = PGSQL_PORT;
+        $dbname = PGSQL_DATABASE;
+        $charset = PGSQL_CHARSET;
+
+        $this->conn = new \PDO("pgsql:host=${host};port=${port};dbname=${dbname}",PGSQL_USER,PGSQL_PASSWORD,array(
+            \PDO::ATTR_PERSISTENT => true,
+        ));
+        $this->conn->exec("SET NAMES '${charset}'");
     }
 
     /**
@@ -24,11 +31,12 @@ class PostgreSql implements Database
      *
      * @param string $sql sql 语句
      *
-     * @return bool 执行 sql 语句的是否成功
+     * @return \PDOStatement 结果集
      * */
     public function query($sql)
     {
         htmlspecialchars($sql);
+        dd($this->conn->query($sql));
         return $this->conn->query($sql);
     }
 

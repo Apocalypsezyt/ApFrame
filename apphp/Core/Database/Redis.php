@@ -9,6 +9,8 @@
 namespace apphp\Core\database;
 
 
+use Predis\Client;
+
 class Redis implements NoSql
 {
     protected $redis;
@@ -22,7 +24,7 @@ class Redis implements NoSql
                         break;
             case 'predis':
             default:
-                            $this->redis = new \Predis\Client([
+                            $this->redis = new Client([
                                 'scheme' => 'tcp',
                                 'host' => REDIS_HOST,
                                 'port' => REDIS_PORT
@@ -45,7 +47,7 @@ class Redis implements NoSql
     /**
      *  @method public 通过key值获取到值
      *
-     *  @param key键
+     *  @param string $key 键
      *
      *  @return string|int|bool 通过key值查找的value值
      * */

@@ -57,7 +57,7 @@ class Init
         require_once ROOT_PATH.'route/route.php';
 
         // 开始使用路由
-        Route::run();
+        return Route::run();
     }
 
     /**

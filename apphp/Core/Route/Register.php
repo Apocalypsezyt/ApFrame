@@ -16,11 +16,13 @@ trait Register
 {
 
     protected $middleware; // 中间件
+    protected $global_middleware; // 全局中间件
 
     public function __construct()
     {
         $kernel = require APP_PATH . 'kernel.php';
         $this->middleware = $kernel['middleware'];
+        $this->global_middleware = $kernel['global_middleware'];
     }
 
     /**
@@ -43,7 +45,7 @@ trait Register
         }
 
         // 检查首尾是否有斜杠
-        $key = $this->hasSlash($key);
+        $key = $this->removalSlash($key);
         // 当注册自定义的路由方法
         if($function instanceof \Closure)
         {
@@ -109,7 +111,7 @@ trait Register
      * @method protected 注册一个 GET 路由
      *
      * @param  string $key 路由键
-     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串
+     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串又或者集成的一个数组
      * */
     protected function get($key, $function)
     {
@@ -120,7 +122,7 @@ trait Register
      * @method protected 注册一个 POST 路由
      *
      * @param  string $key 路由键
-     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串
+     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串又或者集成的一个数组
      * */
     protected function post($key, $function)
     {
@@ -131,7 +133,7 @@ trait Register
      * @method protected 注册一个 PUT 路由
      *
      * @param  string $key 路由键
-     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串
+     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串又或者集成的一个数组
      * */
     protected function put($key, $function)
     {
@@ -142,7 +144,7 @@ trait Register
      * @method protected 注册一个 DELETE 路由
      *
      * @param  string $key 路由键
-     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串
+     * @param \Closure | string $function 一个闭包方法或者控制器的方法字符串又或者集成的一个数组
      * */
     protected function delete($key, $function)
     {
@@ -153,30 +155,38 @@ trait Register
      * @method protected 注册一组 restful 路由 (index,create,show,edit,store,update,delete)
      *
      * @param string $key 路由键
-     * @param string $controller 控制器名
+     * @param string | array $controller 控制器名又或者集成的一个数组
      *
      * @return bool
      * */
     protected function restful($key, $controller) : bool
     {
-        // 声明 restful 路由的方法
-        $index = $controller . '.index';
-        $create = $controller . '.create';
-        $show = $controller . '.show';
-        $edit = $controller . '.edit';
-        $store = $controller . '.store';
-        $update = $controller . '.update';
-        $delete = $controller . '.delete';
+        $middleware = null;
+        if(is_array($controller)){
+            $middleware = $controller['middleware'] ?? null;
+            $controller = $controller['controller'] ?? exit();
+        }
+
         // 首先注册 get 方法
+        $index = ['middleware' => $middleware, 'function' => $controller . '.index'];
+        $create = ['middleware' => $middleware, 'function' => $controller . '.create'];
+        $show = ['middleware' => $middleware, 'function' => $controller . '.show'];
+        $edit = ['middleware' => $middleware, 'function' => $controller . '.edit'];
         $this->get($key, $index);
         $this->get($key.'/create', $create);
         $this->get($key.'/{id}', $show);
         $this->get($key.'/edit/{id}', $edit);
+
         // 然后注册 post 方法
+        $store = ['middleware' => $middleware, 'function' => $controller . '.store'];
         $this->post($key, $store);
+
         // 然后注册 put 方法
+        $update = ['middleware' => $middleware, 'function' => $controller . '.update'];
         $this->put($key . '/{id}', $update);
+
         // 最后注册 delete 方法
+        $delete = ['middleware' => $middleware, 'function' => $controller . '.delete'];
         $this->delete($key . '/{id}', $delete);
 
         return true;

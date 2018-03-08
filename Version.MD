@@ -1,16 +1,45 @@
 # ApFrame 更新记录
 
+> beta V1.2
+
+删除了框架自带的命令行系统 ('command/command/index')
+
+因为删除了框架自带的命令行系统，可以使用框架目录下的 ```php apcmd [命令]```
+
+
+
 > beta V1.1
 
 该版本完成了以下功能：
 
 1. 中间件
 
-中间件在 `application\kernel.php` 定义，为了方便大家使用，在生成模块时，会在生成 `controller` 和 `model` 目录基础下又生成 `middleware` 目录
+中间件在 `application\kernel.php` 定义
+```
+ //局部中间件，调用时使用键名
+ 'middleware' => [
+        'test' => \app\test\Middleware\CheckTest::class
+ ],
+ // 全局中间件，每个路由都会经过
+ 'global_middleware' => [
+        \app\Auth\Middleware\CheckCsrf::class
+ ],
+```
+在生成模块时，会在生成 `controller` 和 `model` 目录基础下又生成 `middleware` 目录
+
+2、路由传入第二个参数可为数组
 
 路由现在的第二个参数可以传入数组，数组的参数分别为 `middleware` 中间件的注册键名，`function` 原本定义的方法
-
-restful 路由暂不支持中间件
+```
+// PHP 5.5 之前
+Route::get("/test", array('middleware' => 'test', 'function' => function(){
+    echo "Hello";
+}));
+// PHP 5.5 之后
+Route::get("/test", ['middleware' => 'test', 'function' => function(){
+    echo "Hello";
+}]);
+```
 
 > beta V 1.01
 

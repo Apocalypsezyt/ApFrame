@@ -22,6 +22,10 @@ class Module extends Command
         }
     }
 
+    /**
+     * @access protected 创建模块及其子目录
+     * @param string $name 模块名
+     * */
     protected function make($name)
     {
         $dir = APP_PATH . $name;
@@ -42,6 +46,9 @@ class Module extends Command
             $this->line("该模块已被创建过");
     }
 
+    /**
+     * @access protected 获取所有模块
+     * */
     protected function get()
     {
         $dir =  APP_PATH;

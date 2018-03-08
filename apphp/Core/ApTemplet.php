@@ -24,12 +24,9 @@ class ApTemplet
 
 
     /**
-     *
-     *  保护方法
-     *
-     *  解析掉点
-     *
-     * @view 模板名带.
+     * @access protected 解析模板点字符串为路径
+     * @param string $view 模板名称
+     * @return string 路径
      * */
     protected function analyzeDot($view)
     {
@@ -40,11 +37,9 @@ class ApTemplet
 
 
     /**
-     *
-     *  查看文件是否给修改过，若未修改过则使用缓存
-     *
-     *  @path 文件路径
-     *
+     * @access protected 查看文件是否给修改过，若未修改过则使用缓存
+     * @param string $path 文件路径
+     * @return string 返回图片缓存的路径
      * */
     protected function isExpired($path)
     {
@@ -58,11 +53,9 @@ class ApTemplet
     }
 
     /**
-     *
-     *  生成缓存文件
-     *
-     *  @path 文件名
-     *
+     * @access protected 生成缓存文件
+     * @param string $path 文件名
+     * @return bool 是否生成成功
      * */
     protected function getCompiledPath($path)
     {
@@ -70,11 +63,10 @@ class ApTemplet
     }
 
     /**
-     *
-     *  模板引擎显示
-     *
-     *  @view 模板名称 @params 参数
-     *
+     * @access protected 模板引擎显示
+     * @param string $view 模板名称
+     * @param array $params 参数
+     * @return bool
      * */
     public function show($view, $params = [])
     {
@@ -125,11 +117,9 @@ class ApTemplet
     }
 
     /**
-     *
-     *  用于处理Js的模板引擎
-     *
-     * @content 内容
-     *
+     * @access protected 用于处理Js的模板引擎
+     * @param string $content 内容
+     * @return bool
      * */
     protected function compileJsEchos($content)
     {
@@ -137,11 +127,9 @@ class ApTemplet
     }
 
     /**
-     *
-     *  不处理地输出
-     *
-     * @content 内容
-     *
+     * @access protected 不处理内容进行输出
+     * @param string $content 内容
+     * @return bool
      * */
     protected function compileEchos($content)
     {
@@ -149,11 +137,9 @@ class ApTemplet
     }
 
     /**
-     *
-     *  进行处理地输出
-     *
-     * @content 内容
-     *
+     * @access protected 处理掉特殊字符串
+     * @param string $content 内容
+     * @return bool
      * */
     protected function compileEscapedEchos($content)
     {
@@ -161,13 +147,9 @@ class ApTemplet
     }
 
     /**
-     *
-     *  正则表达式匹配
-     *
-     *  找到关于@xx()的语句
-     *
-     * @content 需要匹配的内容
-     *
+     * @access protected 正则表达式匹配@xx()中的语句
+     * @param string $content 需要匹配的内容
+     * @return bool
      * */
     protected function compileStatements($content)
     {
@@ -199,10 +181,9 @@ class ApTemplet
     }
 
     /**
-     *  INCLUDE 语句
-     *
-     *
-     * @expression 文件名
+     * @access protected 模板引擎include中的应用
+     * @param string $expression 文件名
+     * @return bool
      * */
     protected function compileInclude($expression)
     {
@@ -212,10 +193,9 @@ class ApTemplet
     }
 
     /**
-     *  IF 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎if中的应用
+     * @param string $expression 条件
+     * @return bool
      * */
     protected function compileIf($expression)
     {
@@ -223,10 +203,9 @@ class ApTemplet
     }
 
     /**
-     *  ELSE IF 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎elseif中的应用
+     * @param string $expression 条件
+     * @return bool
      * */
     protected function compileElseif($expression)
     {
@@ -234,10 +213,9 @@ class ApTemplet
     }
 
     /**
-     *  ELSE 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎else中的应用
+     * @param string $expression 空
+     * @return bool
      * */
     protected function compileElse($expression)
     {
@@ -245,10 +223,9 @@ class ApTemplet
     }
 
     /**
-     *  结束IF 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎endif中的应用
+     * @param string $expression 空
+     * @return bool
      * */
     protected function compileEndif($expression)
     {
@@ -256,10 +233,9 @@ class ApTemplet
     }
 
     /**
-     *  For 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎for中的应用
+     * @param string $expression for的循环语句
+     * @return bool
      * */
     protected function compileFor($expression)
     {
@@ -267,10 +243,9 @@ class ApTemplet
     }
 
     /**
-     *  Endfor 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎endfor中的应用
+     * @param string $expression 空
+     * @return bool
      * */
     protected function compileEndfor($expression)
     {
@@ -278,10 +253,9 @@ class ApTemplet
     }
 
     /**
-     *  Foreach 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎foreach中的应用
+     * @param string $expression foreach的循环语句
+     * @return bool
      * */
     protected function compileForeach($expression)
     {
@@ -289,10 +263,9 @@ class ApTemplet
     }
 
     /**
-     *  EndForeach 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎endforeach中的应用
+     * @param string $expression 无
+     * @return bool
      * */
     protected function compileEndforeach($expression)
     {
@@ -300,10 +273,9 @@ class ApTemplet
     }
 
     /**
-     *  While 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎while中的应用
+     * @param string $expression while的循环语句
+     * @return bool
      * */
     protected function compileWhile($expression)
     {
@@ -311,10 +283,9 @@ class ApTemplet
     }
 
     /**
-     *  EndWhile 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎endwhile中的应用
+     * @param string $expression 空
+     * @return bool
      * */
     protected function compileEndwhile($expression)
     {
@@ -322,10 +293,9 @@ class ApTemplet
     }
 
     /**
-     *  continue 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎continue中的应用
+     * @param string $expression 空
+     * @return bool
      * */
     protected function compileContinue($expression)
     {
@@ -333,10 +303,9 @@ class ApTemplet
     }
 
     /**
-     *  break 语句
-     *
-     *
-     * @expression 条件
+     * @access protected 模板引擎break中的应用
+     * @param string $expression 空
+     * @return bool
      * */
     protected function compileBreak($expression)
     {

@@ -24,10 +24,20 @@ class Controller extends Command
                 $controller = $argv[2];
                 $this->makeResource($module, $controller);
                 break;
+            case 'get':
+                $module = $argv[1];
+                $this->get($module);
+                break;
             default:
         }
     }
 
+    /**
+     * @access protected 新建控制器
+     * @param string $module_name 模块名
+     * @param string $controller_name 控制器名
+     * @return bool
+     * */
     protected function make($module_name, $controller_name)
     {
         $dir = APP_PATH . $module_name;
@@ -64,6 +74,12 @@ EOF;
         return true;
     }
 
+    /**
+     * @access protected 新建资源控制器
+     * @param string $module_name 模块名
+     * @param string $controller_name 控制器名
+     * @return bool
+     * */
     protected function makeResource($module_name, $controller_name)
     {
         $dir = APP_PATH . $module_name;
@@ -153,5 +169,24 @@ EOF;
             $this->line("控制器已经存在");
 
         return true;
+    }
+
+    /**
+     * @access protected 获取模块中所有控制器
+     * @param string $module 模块名
+     * */
+    protected function get($module)
+    {
+        $dir =  APP_PATH . $module .'/controller/';
+        $dirs = array();
+        foreach (scandir($dir) as $file)
+        {
+            if($file === '.' || $file == '..')
+            {
+                continue;
+            }
+            $controller = substr($file,0,stripos($file,'.php'));
+            $this->line($controller);
+        }
     }
 }

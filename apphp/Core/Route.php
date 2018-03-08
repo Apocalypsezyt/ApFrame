@@ -113,21 +113,6 @@ class Route
             }
             // 不在路由注册表中走默认的方式
             else {
-                // 判断是否开启command命令行模式
-                if($path_arr[0] == 'command' && USE_COMMAND) {
-                    $module = $path_arr[0];
-                    $controller = $path_arr[1];
-                    $action = $path_arr[2];
-                    // 执行指向模块控制器的方法
-                    $controller = '\\' . APP_NAMESPACE . '\\' . $module . '\\Controller\\' . $controller;
-                    $controller = new $controller();
-                    $controller->$action();
-                    return true;
-                }
-                elseif(!USE_COMMAND){
-                    error::ActiveError('has_command');
-                }
-
                 error::ActiveError('found_route_nohas');
             }
 

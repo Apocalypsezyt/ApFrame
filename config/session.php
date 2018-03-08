@@ -7,4 +7,4 @@
  */
 
 // session 驱动
-define('SESSION_DRIVER', 'file');
+define('SESSION_DRIVER', readSet('SESSION_DRIVER', 'redis'));

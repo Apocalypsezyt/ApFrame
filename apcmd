@@ -18,6 +18,11 @@
     array_shift($argv);
 
     // 获取到 command 配置文件要使用的类
+    if(!isset($command_app[$command])){
+        $help = new $command_app['help'];
+        $help->fire(array());
+        exit();
+    }
     $class = $command_app[$command];
     // 执行一系列的操作
     $reflection_class = new ReflectionClass($class);

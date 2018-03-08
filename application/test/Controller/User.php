@@ -8,6 +8,7 @@ use app\User\model\User as U;
 use apphp\Core\Facilitate\ImgCompress;
 use apphp\Core\OperatingSystem;
 use apphp\Core\Request;
+use apphp\Core\Storage\ApSession;
 use apphp\database\Redis;
 
 class User extends Controller
@@ -16,7 +17,9 @@ class User extends Controller
     {
         //echo "主页";
         //echo csrf_token();
-
+        $session = new ApSession();
+        $session->set('lp', 'kotori');
+        dd($session->get('session')->get('lp'));
     }
 
     public function show($name)

@@ -31,6 +31,15 @@ class ApSession
     }
 
     /**
+     * @access public 开启Session
+     * */
+    public static function start()
+    {
+        $instance = new static();
+        $instance->generated();
+    }
+
+    /**
      * @access protected cookie生成session,若存在则延长他的时间
      * @return bool
      * */
@@ -47,6 +56,13 @@ class ApSession
                     $redis = new \Redis();
                     $redis->set($session_id, '');
                     $redis->close();
+                    break;
+                case 'mysql':
+                    $mysql = new \mysqli(MYSQL_HOST,MYSQL_USER,MYSQL_PASSWORD,MYSQL_DATABASE,MYSQL_PORT);
+                    $sql = "INSERT INTO `session`(`key`,`value`) VALUES('${session_id}', '') ";
+                    $mysql->query($sql);
+                    $mysql->close();
+                    break;
             }
             return false;
         }
@@ -73,6 +89,14 @@ class ApSession
                         $info = $redis->get($_COOKIE['apframe_session']);
                         self::$info = unserialize($info);
                         $redis->close();
+                        break;
+            case 'mysql':
+                        $mysql = new \mysqli(MYSQL_HOST,MYSQL_USER,MYSQL_PASSWORD,MYSQL_DATABASE,MYSQL_PORT);
+                        $sql = "SELECT * FROM `session` WHERE `key`='${_COOKIE['apframe_session']}'";
+                        $query = $mysql->query($sql);
+                        $info = mysqli_fetch_assoc($query)['value'];
+                        self::$info = unserialize($info);
+                        $mysql->close();
                         break;
         }
     }
@@ -101,6 +125,14 @@ class ApSession
                         $redis->set($_COOKIE['apframe_session'], $serialize_data);
                         $redis->close();
                         break;
+            case 'mysql':
+                        $serialize_data = serialize(self::$info);
+                        $mysql = new \mysqli(MYSQL_HOST,MYSQL_USER,MYSQL_PASSWORD,MYSQL_DATABASE,MYSQL_PORT);
+                        $sql = "INSERT INTO `session`(`key`,`value`) VALUES('${_COOKIE['apframe_session']}', '${serialize_data}') ";
+                        $mysql->query($sql);
+                        $mysql->close();
+                        break;
+
         }
     }
 
@@ -114,7 +146,7 @@ class ApSession
         $info = self::$info[$key];
 
         // 万一是对象
-        if(is_string($info) && $info[0] == 'O' && $info[1] == ':'){
+        if(preg_match('/O:\d+:"\S+":\d+:\{/', $info)){
             $info = unserialize($info);
         }
 

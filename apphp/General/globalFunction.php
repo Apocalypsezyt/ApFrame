@@ -133,9 +133,9 @@ function Response()
 
 /**
  * 快速使用session操作
- * @return \apphp\Core\Storage\Session 返回 Session 对象
+ * @return \apphp\Core\Storage\ApSession 返回 Session 对象
  * */
 function session()
 {
-    return \apphp\Core\Storage\Session::instance();
+    return new \apphp\Core\Storage\ApSession();
 }

@@ -9,9 +9,8 @@
 namespace apphp;
 
 
-use apphp\Core\Request;
 use apphp\Core\Route;
-use apphp\Core\Storage\Session;
+use apphp\Core\Storage\ApSession;
 use apphp\Core\Error\error;
 
 class Init
@@ -19,6 +18,9 @@ class Init
 
     protected static $app;
 
+    /**
+     * @access public 初始化
+     * */
     public static function initAll()
     {
         // 加载自动加载文件
@@ -41,17 +43,14 @@ class Init
         return new static();
     }
 
-    /*
-     *
-     *  执行程序
-     *
+    /**
+     * @access public 执行程序
      * */
     public function exec()
     {
-        // 加载所使用的数据库
 
         // 启动或者不启用session
-        Session::start();
+        ApSession::start();
 
         // 路由配置文件
         require_once ROOT_PATH.'route/route.php';
@@ -61,12 +60,13 @@ class Init
     }
 
     /**
-     * 容器初始化
-     *
-     *
+     * @access protected 容器初始化
      * */
     protected static function initContainer()
     {
-        self::$app = new Container();
+        $app = new Container();
+        $app->bind('session', ApSession::class);
+        $app->bind('route', Route::class);
+        self::$app = $app;
     }
 }
